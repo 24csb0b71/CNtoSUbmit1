@@ -1,0 +1,17 @@
+# Makefile.lib - builds the static library libksocket.a with ar.
+CC       = gcc
+CFLAGS   = -std=c11 -Wall -Wextra -O2 -D_GNU_SOURCE
+AR       = ar
+
+all: libksocket.a
+
+ksocket.o: ksocket.c ksocket.h ktp_internal.h
+	$(CC) $(CFLAGS) -c ksocket.c -o ksocket.o
+
+libksocket.a: ksocket.o
+	$(AR) rcs libksocket.a ksocket.o
+
+clean:
+	rm -f ksocket.o libksocket.a
+
+.PHONY: all clean
